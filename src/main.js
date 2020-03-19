@@ -9,11 +9,10 @@ import 'view-design/dist/styles/iview.css';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
-//video引入
-import VideoPlayer from 'vue-video-player'
-require('video.js/dist/video-js.css')
-require('vue-video-player/src/custom-theme.css')
-Vue.use(VideoPlayer)
+//引入video.js
+import Video from 'video.js'
+import 'video.js/dist/video-js.css'
+Vue.prototype.$video = Video
 
 Vue.config.productionTip = false;
 Vue.use(ViewUI);
