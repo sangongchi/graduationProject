@@ -2,10 +2,20 @@
   <div class="Image-container">
     <div class="content">
       <div class="selctOptions">
-        <div class="select-option" v-for="(item, index) in seletOptionArr" :key="index">{{ item.name }}</div>
+        <div
+          class="select-option"
+          v-for="(item, index) in seletOptionArr"
+          :key="index"
+        >{{ item.name }}</div>
       </div>
       <div class="video-body">
-        <div class="video-option" v-for="(item, index) in movieList" :key="index">
+        <div
+          class="video-option"
+          v-for="(item, index) in movieList"
+          :key="index"
+          @mouseenter="videController(item.id, 1)"
+          @mouseleave="videController(item.id, 2)"
+        >
           <video :id="'myVideo' + item.id" class="video-js">
             <source :src="item.movieSrc" type="video/mp4" />
           </video>
@@ -29,6 +39,13 @@ export default {
     };
   },
   methods: {
+    videController(id, status) {
+      let myPlayer = this.$video('myVideo' + id);
+      if (status == 1) {
+        console.log('触发播放视频');
+        myPlayer.play();
+      }
+    },
     videoInit() {
       //初始化视频方法,循环数组获取id值
       this.movieList.map((item, index) => {
@@ -36,7 +53,8 @@ export default {
           //确定播放器是否具有用户可以与之交互的控件。没有控件，启动视频播放的唯一方法是使用autoplay属性或通过Player API。
           controls: true,
           //自动播放属性,muted:静音播放
-          autoplay: 'muted',
+          // autoplay: 'muted',
+          autoplay: false,
           //建议浏览器是否应在<video>加载元素后立即开始下载视频数据。
           preload: 'auto'
         });

@@ -5,8 +5,8 @@
         <div class="movie-item" v-for="(item, index) in movieList" :key="item.movieTitle + index">
           <div class="Imag"></div>
           <div class="txt-content">
-            <p class="movie-title">item.movieTitle</p>
-            <p class="movie-context">item.movieDesr</p>
+            <p class="movie-title">{{item.movieTitle}}</p>
+            <p class="movie-context">{{item.movieDesr}}</p>
           </div>
         </div>
       </div>
