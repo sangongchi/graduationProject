@@ -3,17 +3,17 @@
     <div class="upload-container">
       <div class="top-categery">上传</div>
       <div class="main-content">
-        <Form label-position="left" :label-width="100">
+        <Form label-position="left" :label-width="100" :rules="submitRuler" ref="submitForm" :model="uploadInfo">
           <Row>
             <Col span="24">
-              <FormItem label="文件名称:">
+              <FormItem label="文件名称:" prop="fileName">
                 <Input v-model="uploadInfo.fileName"></Input>
               </FormItem>
             </Col>
           </Row>
           <Row>
             <Col span="24">
-              <FormItem label="文件分类:">
+              <FormItem label="文件分类:" prop="classType">
                 <Select v-model="uploadInfo.classType">
                   <Option
                     v-for="item in classList"
@@ -26,7 +26,7 @@
           </Row>
           <Row>
             <Col span="24">
-              <FormItem label="文件描述:">
+              <FormItem label="文件描述:" prop="fileDesrc">
                 <Input v-model="uploadInfo.fileDesrc"></Input>
               </FormItem>
             </Col>
@@ -54,6 +54,7 @@
           </Upload>
         </div>
       </div>
+      <Button type="primary" @click="submitFun">submit</Button>
     </div>
   </div>
 </template>
@@ -61,6 +62,13 @@
 export default {
   name: 'UploadFile',
   data() {
+    const fileNameCheck=(rule,value,callback)=>{
+      if(value!==''){
+        callback()
+      }else{
+        callback(new Error('请输入文件名称'))
+      }
+    }
     return {
       classList: [
         {
@@ -84,10 +92,17 @@ export default {
         classType: '',
         fileName: '',
         fileDesrc: ''
-      }
+      },
+      submitRuler:[
+        
+      ]
     };
   },
-  methods: {}
+  methods: {
+    submitFun(){
+      console.log(this.uploadInfo)
+    }
+  }
 };
 </script>
 <style lang="scss">

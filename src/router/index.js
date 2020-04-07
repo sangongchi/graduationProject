@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-const Index = resolve => require.ensure([], () => resolve(require('../views/Index.vue')));
+const Index = resolve => require.ensure([], () => resolve(require('../views/Guid.vue')));
 const Login = resolve => require.ensure([], () => resolve(require('../views/Login.vue')));
 const Register = resolve => require([], () => resolve(require('../views/Register.vue')));
 
@@ -16,7 +16,7 @@ const UploadPage = resolve => require([], () => resolve(require('../views/workMa
 //视频版块
 const Movie = resolve => require([], () => resolve(require('../views/Movie/inedx.vue')));
 //图片页面
-const ImagePage=resolve => require([],()=>resolve(require('../views/ImagePage')))
+const ImagePage = resolve => require([], () => resolve(require('../views/ImagePage')));
 
 //404页面
 const ErrorPage = resolve => require([], () => resolve(require('../views/404.vue')));
@@ -67,9 +67,9 @@ const routes = [
     component: Movie
   },
   {
-    path:'/imagePage',
-    name:'ImagePage',
-    component:ImagePage
+    path: '/imagePage',
+    name: 'ImagePage',
+    component: ImagePage
   },
   {
     path: '/404',
