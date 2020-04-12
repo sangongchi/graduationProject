@@ -57,7 +57,7 @@ const routes = [
     ]
   },
   {
-    path: '/upload',
+    path: '/uploadPage',
     name: 'UploadPage',
     component: UploadPage
   },
@@ -79,6 +79,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 });
 

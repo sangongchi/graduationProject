@@ -9,4 +9,5 @@ export default {};
 </script>
 <style lang="scss">
 @import './common/wap-reset.css';
+@import './common/global.scss';
 </style>

@@ -14,13 +14,14 @@ import QS from 'qs';
 //   axios.defaults.baseURL = 'http://api.123dailu.com/';
 // }
 // let baseURL = 'http://192.168.1.13:3000';
-let baseURL = ' http://sangongchi.top:7300/mock/5e6c86dc69a38933beebdd9b/graduationProject'
+// let baseURL = ' http://sangongchi.top:7300/mock/5e6c86dc69a38933beebdd9b/graduationProject'
+let baseURL = 'http://127.0.0.1:3000/upload';
 
 // 请求超时时间
 axios.defaults.timeout = 10000;
 
 // post请求头
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 // 请求拦截器
 // axios.interceptors.request.use(
@@ -123,7 +124,8 @@ export function get(url, params) {
 export function post(url, params) {
   return new Promise((resolve, reject) => {
     axios
-      .post(baseURL + url, QS.stringify(params))
+      // .post(baseURL + url, QS.stringify(params))
+      .post(baseURL + url, params)
       .then(res => {
         resolve(res.data);
       })

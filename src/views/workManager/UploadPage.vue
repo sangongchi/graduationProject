@@ -15,11 +15,7 @@
             <Col span="24">
               <FormItem label="文件分类:" prop="classType">
                 <Select v-model="uploadInfo.classType">
-                  <Option
-                    v-for="item in classList"
-                    :value="item.value"
-                    :key="item.value"
-                  >{{ item.name }}</Option>
+                  <Option v-for="item in classList" :value="item.value" :key="item.value">{{ item.name }}</Option>
                 </Select>
               </FormItem>
             </Col>
@@ -33,28 +29,13 @@
           </Row>
         </Form>
         <div class="upload-box">
-          <div class="upload-title">上传源文件：</div>
-          <Upload multiple type="drag" action="//jsonplaceholder.typicode.com/posts/">
-            <div style="padding: 20px 0">
-              <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-              <p class="tips">Click or drag files here to upload</p>
-            </div>
-          </Upload>
-        </div>
-        <div class="upload-box">
           <div class="upload-title">上传封面图：</div>
-          <Upload multiple type="drag" action="//jsonplaceholder.typicode.com/posts/">
-            <div style="padding: 20px 0">
-              <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-              <p class="tips">
-                将文件拖动到此处，或者 点击上传
-                <br />支持PNG/JPG格式，不超过10M
-              </p>
-            </div>
-          </Upload>
+          <div class="z-upload">
+            <Icon type="ios-cloud-upload" class="inputIcon" size="52" style="color: #3399ff"></Icon>
+            <input type="file" ref="uploadFile" class="inputStyle" @change="beforeUpload" />
+          </div>
         </div>
       </div>
-      <Button type="primary" @click="submitFun">submit</Button>
     </div>
   </div>
 </template>
@@ -62,14 +43,15 @@
 export default {
   name: 'UploadFile',
   data() {
-    const fileNameCheck=(rule,value,callback)=>{
-      if(value!==''){
-        callback()
-      }else{
-        callback(new Error('请输入文件名称'))
+    const fileNameCheck = (rule, value, callback) => {
+      if (value !== '') {
+        callback();
+      } else {
+        callback(new Error('请输入文件名称'));
       }
-    }
+    };
     return {
+      files: [],
       classList: [
         {
           name: 'unity',
@@ -93,14 +75,25 @@ export default {
         fileName: '',
         fileDesrc: ''
       },
-      submitRuler:[
-        
-      ]
+      submitRuler: {}
     };
   },
   methods: {
-    submitFun(){
-      console.log(this.uploadInfo)
+    beforeUpload(file) {
+      console.log(file.target.files[0]);
+      let formData = new FormData();
+      formData.append('file', file.target.files[0]);
+      // let params={
+      //   'file':file
+      // }
+
+      this.$post('/file', formData)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };
