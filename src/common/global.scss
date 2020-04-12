@@ -7,8 +7,19 @@
   position: relative;
   overflow: hidden;
   transition: border-color 0.2s ease;
-  padding-top: 45px;
-  height: 200px;
+  padding-top: 35px;
+  height: 180px;
+
+  &::after {
+    position: absolute;
+    content: '点击此处上传';
+    font-size: 20px;
+    width: 250px;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 50px;
+    color: #3399ff;
+  }
 
   .inputStyle {
     width: 100%;

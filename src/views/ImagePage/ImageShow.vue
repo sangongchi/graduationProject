@@ -1,35 +1,34 @@
 <template>
   <div class="Image-container">
     <div class="content">
-      <div class="selctOptions">
-        <div
-          class="select-option"
-          v-for="(item) in seletOptionArr"
-          :key="item.name+item.id"
-          :class="{active:item.value==imgSelectType}"
-          @click="imgSelectType=item.value"
-        >{{item.name}}</div>
-      </div>
-      <div class="img-body">
-        <div class="img-option" v-for="item in imgData" :key="item.id">
-          <div class="img">
-            <img :src="item.imgSrc" alt="item.name" />
+      <Tabs :animated="false" @on-click="clickHandler">
+        <TabPane
+          :label="selectItem.name"
+          v-for="(selectItem) in seletOptionArr"
+          :key="selectItem.name+selectItem.id"
+        >
+          <div class="img-body">
+            <div class="img-option" v-for="item in imgData" :key="item.id">
+              <div class="img">
+                <img :src="item.imgSrc" alt="item.name" />
+              </div>
+              <div class="list-info trans"></div>
+              <div class="list-btn trans">
+                <div class="img-download">立即下载</div>
+              </div>
+            </div>
           </div>
-          <div class="list-info trans"></div>
-          <div class="list-btn trans">
-            <div class="img-download">立即下载</div>
-          </div>
-        </div>
-      </div>
+        </TabPane>
+      </Tabs>
     </div>
   </div>
 </template>
 <script>
 export default {
   name: 'ImageContainer',
-  props: ['imgData'],
   data() {
     return {
+      imgData: [],
       imgSelectType: '',
       seletOptionArr: [
         { name: '精选作品', value: 0 },
@@ -39,11 +38,40 @@ export default {
       ]
     };
   },
+  methods: {
+    clickHandler(id) {
+      console.log('我被点击了' + id);
+      this.$loading.show();
+      this.$post('/ImageData', {
+        fileName: 'images'
+      }).then(res => {
+        this.$loading.hide();
+        this.imgData = res.data.imgArr;
+      });
+    },
+    getImageData() {
+      this.$loading.show();
+      this.$post('/ImageData', {
+        fileName: 'images'
+      }).then(res => {
+        this.$loading.hide();
+        this.imgData = res.data.imgArr;
+      });
+    }
+  },
   mounted() {
-    console.log(this.imgData[0]);
+    this.getImageData();
   }
 };
 </script>
+<style lang="scss">
+.Image-container {
+  .ivu-tabs-nav {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+</style>
 <style lang="scss" scoped>
 .trans {
   transition: all 0.2s;
@@ -75,16 +103,16 @@ export default {
   }
   .img-body {
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    column-count: 4;
+    column-gap: 0;
     .img-option {
-      height: 460px;
-      background-color: yellowgreen;
-      margin: 0 10px;
+      width: 260px;
       margin-bottom: 45px;
       position: relative;
       overflow: hidden;
+      img {
+        width: 100%;
+      }
       .list-info {
         width: 100%;
         height: 50px;

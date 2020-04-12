@@ -1,39 +1,27 @@
 <template>
   <div class="Image-Page">
-    <ImageContainer :imgData=imgData></ImageContainer>
+    <ImageContainer></ImageContainer>
   </div>
 </template>
 <script>
-import ImageContainer from "../../components/ImageShow"
+import ImageContainer from './ImageShow';
 export default {
   name: 'ImagePage',
   data() {
-    return {
-      imgData:[],
-    };
+    return {};
   },
-  components:{
+  components: {
     ImageContainer
   },
-  methods: {
-    getImageData(){
-      this.$post('/ImageData',{
-        fileName:'images'
-      }).then(res=>{
-        this.imgData=res.data.imgArr
-        console.log(this.imgData)
-      })
-    }
-  },
-  mounted(){
-    this.getImageData()
-  }
+  methods: {},
+  mounted() {}
 };
 </script>
 <style lang="scss" scoped>
-.Image-Page{
-  width:100vw;
+.Image-Page {
+  width: 100vw;
   height: auto;
-  background-color: #F8F8F9
+  overflow: hidden;
+  background-color: #f8f8f9;
 }
 </style>

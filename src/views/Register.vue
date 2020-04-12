@@ -6,8 +6,8 @@
         <div class="title">个人作品管理系统</div>
         <div class="loginForm">
           <Form ref="formInline" :model="formInline" :rules="ruleInline">
-            <FormItem prop="user" class="input-item">
-              <Input type="text" v-model="formInline.user" placeholder="请输入用户名"></Input>
+            <FormItem prop="userName" class="input-item">
+              <Input type="text" v-model="formInline.userName" placeholder="请输入用户名"></Input>
             </FormItem>
 
             <FormItem prop="password" class="input-item">
@@ -21,12 +21,12 @@
             <Row>
               <Col span="12" align="center">
                 <FormItem>
-                  <Button type="primary" @click="handleSubmit('formInline')">去注册</Button>
+                  <Button type="primary" @click="goBack">返回登录</Button>
                 </FormItem>
               </Col>
               <Col span="12" align="center">
                 <FormItem>
-                  <Button type="primary" @click="handleSubmit('formInline')">立即登录</Button>
+                  <Button type="primary" @click="registerHandler()">注册</Button>
                 </FormItem>
               </Col>
             </Row>
@@ -42,12 +42,12 @@ export default {
   data() {
     return {
       formInline: {
-        user: '',
+        userName: '',
         password: '',
         safeCode: ''
       },
       ruleInline: {
-        user: [
+        userName: [
           {
             required: true,
             message: '请输入用户名',
@@ -65,22 +65,15 @@ export default {
     };
   },
   methods: {
-    handleSubmit(name) {
-      // this.$refs[name].validate(valid => {
-      //   if (valid) {
-      //     this.$Message.success('Success!');
-      //   } else {
-      //     this.$Message.error('Fail!');
-      //   }
-      // });
-      // this.$get('/category', {})
-      //   .then(res => {
-      //     console.log(res);
-      //   })
-      //   .catch(err => {
-      //     console.log(err);
-      //   });
-      this.$get('/', {})
+    goBack() {
+      history.go(-1);
+    },
+    registerHandler() {
+      let params = {
+        userName: this.formInline.userName,
+        password: this.formInline.password
+      };
+      this.$post('/register', { params })
         .then(res => {
           console.log(res);
         })

@@ -6,22 +6,25 @@
         <div class="title">个人作品管理系统</div>
         <div class="loginForm">
           <Form ref="formInline" :model="formInline" :rules="ruleInline">
-            <FormItem prop="user" class="input-item">
-              <Input type="text" v-model="formInline.user" placeholder="请输入用户名"></Input>
+            <FormItem prop="userName" class="input-item">
+              <Input type="text" v-model="formInline.userName" placeholder="请输入用户名"></Input>
             </FormItem>
 
             <FormItem prop="password" class="input-item">
               <Input type="text" v-model="formInline.password" placeholder="请输入密码"></Input>
             </FormItem>
 
-            <FormItem class="input-item safeCode-item">
-              <Input type="text" v-model="formInline.safeCode" placeholder="验证码"></Input>
-              <div class="codeImg"></div>
+            <FormItem class="input-item code-item">
+              <Input type="text" v-model="formInline.code" placeholder="验证码"></Input>
+
+              <div class="codeImg" @click="refreshCaptch">
+                <img src="http://127.0.0.1:3000/getCodeImg" alt="验证码" ref="codeImg" />
+              </div>
             </FormItem>
             <Row>
               <Col span="12" align="center">
                 <FormItem>
-                  <Button type="primary" @click="handleSubmit('formInline')">去注册</Button>
+                  <Button type="primary" @click="goResgister">去注册</Button>
                 </FormItem>
               </Col>
               <Col span="12" align="center">
@@ -41,13 +44,14 @@
 export default {
   data() {
     return {
+      codeImgData: '',
       formInline: {
-        user: '',
+        userName: '',
         password: '',
-        safeCode: ''
+        code: ''
       },
       ruleInline: {
-        user: [
+        userName: [
           {
             required: true,
             message: '请输入用户名',
@@ -66,27 +70,29 @@ export default {
   },
   methods: {
     handleSubmit(name) {
-      // this.$refs[name].validate(valid => {
-      //   if (valid) {
-      //     this.$Message.success('Success!');
-      //   } else {
-      //     this.$Message.error('Fail!');
-      //   }
-      // });
-      // this.$get('/category', {})
-      //   .then(res => {
-      //     console.log(res);
-      //   })
-      //   .catch(err => {
-      //     console.log(err);
-      //   });
-      this.$get('/', {})
-        .then(res => {
-          console.log(res);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      let params = {
+        userName: this.formInline.userName,
+        password: this.formInline.password
+      };
+      this.$post('/login', params).then(res => {
+        if (res.err == 0) {
+          this.$Message.success(res.message);
+        } else {
+          this.$Message.error(res.message);
+        }
+      });
+    },
+
+    /**
+     * @method refreshCaptch
+     * @description 刷新验证码
+     */
+    refreshCaptch() {
+      this.$refs['codeImg'].src =
+        'http://127.0.0.1:3000/getCodeImg?d=' + Math.random();
+    },
+    goResgister() {
+      this.$router.push({ path: '/register' });
     }
   }
 };
@@ -130,17 +136,21 @@ export default {
         .input-item {
           width: 100%;
         }
-        .safeCode-item {
+        .code-item {
           position: relative;
           overflow: hidden;
           .codeImg {
-            width: 60px;
-            height: 80%;
-            background-color: #6e68ee;
+            width: 80px;
+            height: 30px;
             position: absolute;
             right: 3px;
             top: 5px;
             border-radius: 5px;
+            img {
+              position: absolute;
+              top: 0;
+              width: 100%;
+            }
           }
         }
         .forgetPass {
