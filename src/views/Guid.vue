@@ -25,7 +25,7 @@ export default {
   components: {},
   methods: {
     getSystems() {
-      this.$post('/guidSystems', {})
+      this.$post('/guid/guidSystems', {})
         .then(res => {
           this.systems = res.data.systems;
         })

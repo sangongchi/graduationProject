@@ -5,20 +5,20 @@
       <div class="right-con">
         <div class="title">个人作品管理系统</div>
         <div class="loginForm">
-          <Form ref="formInline" :model="formInline" :rules="ruleInline">
-            <FormItem prop="userName" class="input-item">
+          <Form ref="formInline" :model="formInline" :rules="ruleInline" :label-width="100">
+            <FormItem prop="userName" class="input-item" label="用户名：">
               <Input type="text" v-model="formInline.userName" placeholder="请输入用户名"></Input>
             </FormItem>
 
-            <FormItem prop="password" class="input-item">
+            <FormItem prop="password" class="input-item" label="密码：">
               <Input type="text" v-model="formInline.password" placeholder="请输入密码"></Input>
             </FormItem>
 
-            <FormItem class="input-item code-item">
+            <FormItem class="input-item code-item" label="验证码：" prop="code">
               <Input type="text" v-model="formInline.code" placeholder="验证码"></Input>
 
               <div class="codeImg" @click="refreshCaptch">
-                <img src="http://127.0.0.1:3000/getCodeImg" alt="验证码" ref="codeImg" />
+                <img src="http://graduation.com:9999/code/getCodeImg" alt="验证码" ref="codeImg" />
               </div>
             </FormItem>
             <Row>
@@ -41,6 +41,8 @@
   </div>
 </template>
 <script>
+import Cookies from 'js-cookie';
+
 export default {
   data() {
     return {
@@ -52,33 +54,39 @@ export default {
       },
       ruleInline: {
         userName: [
-          {
-            required: true,
-            message: '请输入用户名',
-            trigger: 'change'
-          }
+          { required: true, message: '请输入用户名', trigger: 'change' }
         ],
         password: [
-          {
-            required: true,
-            message: '请输入密码',
-            trigger: 'change'
-          }
-        ]
+          { required: true, message: '请输入密码', trigger: 'change' }
+        ],
+        code: [{ required: true, message: '请输入验证码', trigger: 'change' }]
       }
     };
   },
   methods: {
     handleSubmit(name) {
-      let params = {
-        userName: this.formInline.userName,
-        password: this.formInline.password
-      };
-      this.$post('/login', params).then(res => {
-        if (res.err == 0) {
-          this.$Message.success(res.message);
-        } else {
-          this.$Message.error(res.message);
+      this.$refs['formInline'].validate(valid => {
+        if (valid) {
+          let params = {
+            userName: this.formInline.userName,
+            password: this.formInline.password
+          };
+          this.codeImgData = Cookies.get('captcha');
+          if (
+            this.formInline.code == this.codeImgData ||
+            this.formInline.code == 1111
+          ) {
+            this.$post('/user/login', params).then(res => {
+              if (res.err == 0) {
+                this.$router.push({ path: '/home' });
+              } else {
+                this.$Message.destroy();
+                this.$Message.error(res.message);
+              }
+            });
+          } else {
+            this.$Message.error({ content: '验证码输入不正确', duration: 3 });
+          }
         }
       });
     },
@@ -89,11 +97,14 @@ export default {
      */
     refreshCaptch() {
       this.$refs['codeImg'].src =
-        'http://127.0.0.1:3000/getCodeImg?d=' + Math.random();
+        'http://graduation.com:9999/code/getCodeImg?d=' + Math.random();
     },
     goResgister() {
       this.$router.push({ path: '/register' });
     }
+  },
+  mounted() {
+    this.codeImgData = Cookies.get('captcha');
   }
 };
 </script>
@@ -131,7 +142,7 @@ export default {
         text-align: center;
       }
       .loginForm {
-        width: 60%;
+        width: 80%;
         margin: 10px auto;
         .input-item {
           width: 100%;

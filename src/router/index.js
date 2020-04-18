@@ -3,39 +3,39 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-const Index = resolve => require.ensure([], () => resolve(require('../views/Guid.vue')));
-const Login = resolve => require.ensure([], () => resolve(require('../views/Login.vue')));
-const Register = resolve => require([], () => resolve(require('../views/Register.vue')));
+const Index = (resolve) => require.ensure([], () => resolve(require('../views/Guid.vue')));
+const Login = (resolve) => require.ensure([], () => resolve(require('../views/Login.vue')));
+const Register = (resolve) => require([], () => resolve(require('../views/Register.vue')));
 
 //作品管理系统
-const WorkManager = resolve => require([], () => resolve(require('../views/workManager/Index.vue')));
-const MenuOne = resolve => require([], () => resolve(require('../views/workManager/menu/index.vue')));
-const MenuTwo = resolve => require([], () => resolve(require('../views/workManager/menu/menuOne.vue')));
-const UploadPage = resolve => require([], () => resolve(require('../views/workManager/UploadPage.vue')));
+const WorkManager = (resolve) => require([], () => resolve(require('../views/workManager/Index.vue')));
+const MenuOne = (resolve) => require([], () => resolve(require('../views/workManager/menu/index.vue')));
+const MenuTwo = (resolve) => require([], () => resolve(require('../views/workManager/menu/menuOne.vue')));
+const UploadPage = (resolve) => require([], () => resolve(require('../views/workManager/UploadPage.vue')));
 
 //视频版块
-const Movie = resolve => require([], () => resolve(require('../views/Movie/inedx.vue')));
+const Movie = (resolve) => require([], () => resolve(require('../views/Movie/inedx.vue')));
 //图片页面
-const ImagePage = resolve => require([], () => resolve(require('../views/ImagePage')));
+const ImagePage = (resolve) => require([], () => resolve(require('../views/ImagePage')));
 
 //404页面
-const ErrorPage = resolve => require([], () => resolve(require('../views/404.vue')));
+const ErrorPage = (resolve) => require([], () => resolve(require('../views/404.vue')));
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Index',
-    component: Index
+    component: Index,
   },
   //登录注册部分
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: Login,
   },
   {
     path: '/register',
     name: 'Register',
-    component: Register
+    component: Register,
   },
   //作品管理系统路由部分
   {
@@ -47,40 +47,40 @@ const routes = [
       {
         path: '',
         name: 'One',
-        component: MenuOne
+        component: MenuOne,
       },
       {
         path: 'two',
         name: 'Two',
-        component: MenuTwo
-      }
-    ]
+        component: MenuTwo,
+      },
+    ],
   },
   {
     path: '/uploadPage',
     name: 'UploadPage',
-    component: UploadPage
+    component: UploadPage,
   },
   {
     path: '/movie',
     name: 'Movie',
-    component: Movie
+    component: Movie,
   },
   {
     path: '/imagePage',
     name: 'ImagePage',
-    component: ImagePage
+    component: ImagePage,
   },
   {
     path: '/404',
     name: 'ErrorPage',
-    component: ErrorPage
-  }
+    component: ErrorPage,
+  },
 ];
 
 const router = new VueRouter({
   mode: 'history',
-  routes
+  routes,
 });
 
 export default router;

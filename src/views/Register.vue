@@ -5,18 +5,19 @@
       <div class="right-con">
         <div class="title">个人作品管理系统</div>
         <div class="loginForm">
-          <Form ref="formInline" :model="formInline" :rules="ruleInline">
-            <FormItem prop="userName" class="input-item">
+          <Form ref="formInline" :model="formInline" :rules="ruleInline" :label-width="100">
+            <FormItem prop="userName" class="input-item" label="用户名：">
               <Input type="text" v-model="formInline.userName" placeholder="请输入用户名"></Input>
             </FormItem>
 
-            <FormItem prop="password" class="input-item">
+            <FormItem prop="password" class="input-item" label="密码：">
               <Input type="text" v-model="formInline.password" placeholder="请输入密码"></Input>
             </FormItem>
-
-            <FormItem class="input-item safeCode-item">
+            <FormItem prop="repeatPassword" class="input-item" label="确认密码：">
+              <Input type="text" v-model="formInline.repeatPassword" placeholder="请再次输入密码"></Input>
+            </FormItem>
+            <FormItem class="input-item safeCode-item" label="验证码：">
               <Input type="text" v-model="formInline.safeCode" placeholder="验证码"></Input>
-              <div class="codeImg"></div>
             </FormItem>
             <Row>
               <Col span="12" align="center">
@@ -30,7 +31,6 @@
                 </FormItem>
               </Col>
             </Row>
-            <div class="forgetPass">忘记密码</div>
           </Form>
         </div>
       </div>
@@ -44,6 +44,7 @@ export default {
       formInline: {
         userName: '',
         password: '',
+        repeatPassword: '',
         safeCode: ''
       },
       ruleInline: {
@@ -51,14 +52,21 @@ export default {
           {
             required: true,
             message: '请输入用户名',
-            trigger: 'change'
+            trigger: 'blur'
           }
         ],
         password: [
           {
             required: true,
             message: '请输入密码',
-            trigger: 'change'
+            trigger: 'blur'
+          }
+        ],
+        repeatPassword: [
+          {
+            required: true,
+            message: '此处不能为空',
+            trigger: 'blur'
           }
         ]
       }
@@ -73,13 +81,26 @@ export default {
         userName: this.formInline.userName,
         password: this.formInline.password
       };
-      this.$post('/register', { params })
-        .then(res => {
-          console.log(res);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      this.$refs['formInline'].validate(valid => {
+        if (valid) {
+          if (this.formInline.password == this.formInline.repeatPassword) {
+            this.$post('/user/register', { params })
+              .then(res => {
+                if (res.err == 0) {
+                  this.$Message.success(res.message);
+                } else {
+                  this.$Message.destroy()
+                  this.$Message.error(res.message);
+                }
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          } else {
+            this.$Message.error('两次密码不一样，请重新输入');
+          }
+        }
+      });
     }
   }
 };
@@ -118,7 +139,7 @@ export default {
         text-align: center;
       }
       .loginForm {
-        width: 60%;
+        width: 80%;
         margin: 10px auto;
         .input-item {
           width: 100%;
@@ -126,15 +147,6 @@ export default {
         .safeCode-item {
           position: relative;
           overflow: hidden;
-          .codeImg {
-            width: 60px;
-            height: 80%;
-            background-color: #6e68ee;
-            position: absolute;
-            right: 3px;
-            top: 5px;
-            border-radius: 5px;
-          }
         }
         .forgetPass {
           text-align: right;
