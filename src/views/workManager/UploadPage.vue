@@ -38,7 +38,7 @@
             </Col>
           </Row>
         </Form>
-        <div class="upload-box">
+        <div class="upload-box" v-if="uploadInfo.classType!=2">
           <div class="upload-title">上传源文件：</div>
           <div class="z-upload">
             <Icon type="ios-cloud-upload" class="inputIcon" size="52" style="color: #3399ff"></Icon>
@@ -46,7 +46,7 @@
           </div>
         </div>
         <div class="upload-box">
-          <div class="upload-title">上传封面图：</div>
+          <div class="upload-title">{{uploadInfo.classType==2?'上传图片文件：':'上传封面图：'}}</div>
           <div class="z-upload">
             <Icon type="ios-cloud-upload" class="inputIcon" size="52" style="color: #3399ff"></Icon>
             <input type="file" ref="uploadImg" class="inputStyle" @change="beforeUploadImg" />

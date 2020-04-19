@@ -27,7 +27,7 @@ export default {
     getSystems() {
       this.$post('/guid/guidSystems', {})
         .then(res => {
-          this.systems = res.data.systems;
+          this.systems = res.systems;
         })
         .catch(err => {
           console.log('数据请求错误' + err);

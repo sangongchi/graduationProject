@@ -39,7 +39,7 @@ axios.defaults.timeout = 10000;
 
 // 响应拦截器
 axios.interceptors.response.use(
-  response => {
+  (response) => {
     if (response.status === 200) {
       return Promise.resolve(response);
     } else {
@@ -47,7 +47,7 @@ axios.interceptors.response.use(
     }
   },
   // 服务器状态码不是200的情况
-  error => {
+  (error) => {
     if (error.response.status) {
       switch (error.response.status) {
         // 401: 未登录
@@ -55,7 +55,7 @@ axios.interceptors.response.use(
         // 在登录成功后返回当前页面，这一步需要在登录页操作。
         case 401:
           this.$router.replace({
-            path: '/login'
+            path: '/login',
           });
           break;
         // 403 token过期
@@ -73,7 +73,7 @@ axios.interceptors.response.use(
           // 跳转登录页面，并将要浏览的页面fullPath传过去，登录成功后跳转需要访问的页面
           setTimeout(() => {
             this.$router.replace({
-              path: '/login'
+              path: '/login',
             });
           }, 1000);
           break;
@@ -106,12 +106,12 @@ export function get(url, params) {
   return new Promise((resolve, reject) => {
     axios
       .get(baseURL + url, {
-        params: params
+        params: params,
       })
-      .then(res => {
+      .then((res) => {
         resolve(res.data);
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err.data);
       });
   });
@@ -126,10 +126,10 @@ export function post(url, params) {
     axios
       // .post(baseURL + url, QS.stringify(params))
       .post(baseURL + url, params)
-      .then(res => {
+      .then((res) => {
         resolve(res.data);
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err.data);
       });
   });

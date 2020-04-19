@@ -42,20 +42,21 @@ export default {
     clickHandler(id) {
       console.log('我被点击了' + id);
       this.$loading.show();
-      this.$post('/ImageData', {
-        fileName: 'images'
+      this.$post('/seeFile/ImageData', {
+        fileName: 'images',
+        classType: 2
       }).then(res => {
         this.$loading.hide();
-        this.imgData = res.data.imgArr;
+        this.imgData = res.imgArr;
       });
     },
     getImageData() {
       this.$loading.show();
-      this.$post('/ImageData', {
+      this.$post('/seeFile/ImageData', {
         fileName: 'images'
       }).then(res => {
         this.$loading.hide();
-        this.imgData = res.data.imgArr;
+        this.imgData = res.imgArr;
       });
     }
   },
