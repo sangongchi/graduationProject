@@ -20,7 +20,7 @@ export default {
 <style lang="scss" scoped>
 .Image-Page {
   width: 100vw;
-  height: auto;
+  min-height: 100vh;
   overflow: hidden;
   background-color: #f8f8f9;
 }

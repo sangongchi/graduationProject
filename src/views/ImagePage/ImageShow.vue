@@ -14,7 +14,7 @@
               </div>
               <div class="list-info trans"></div>
               <div class="list-btn trans">
-                <div class="img-download">立即下载</div>
+                <div class="img-download" @click="downloadHandler(item.fileSrc)">立即下载</div>
               </div>
             </div>
           </div>
@@ -57,8 +57,31 @@ export default {
       }).then(res => {
         this.$loading.hide();
         this.imgData = res.imgArr;
+        console.log(this.imgData)
       });
-    }
+    },
+    downloadByIframe(url){
+      var iframe = document.getElementById("myIframe");
+      if(iframe){
+        iframe.src = url;
+      }else{
+        iframe = document.createElement("iframe");
+        iframe.style.display = "none";
+        iframe.src = url;
+        iframe.id = "myIframe";
+        document.body.appendChild(iframe);
+      }
+    },
+    downloadHandler(href){
+      href=href.split('9999')[1]
+      this.$get('/downloadUrl', {
+        fileHref: href,
+      }).then(res => {
+        location.href=res.downloadUrl
+      }).catch(err=>{
+        console.log('文件下载失败')
+      });
+    },
   },
   mounted() {
     this.getImageData();
@@ -80,6 +103,7 @@ export default {
 }
 .Image-container {
   width: 1200px;
+  min-width: 100vh;
   padding: 24px;
   background-color: #ffffff;
   margin: 0 auto;
