@@ -10,7 +10,7 @@
           <div class="img-body">
             <div class="img-option" v-for="item in imgData" :key="item.id">
               <div class="img">
-                <img :src="item.imgSrc" alt="item.name" />
+                <img :src="item.fileSrc" alt="item.name" />
               </div>
               <div class="list-info trans"></div>
               <div class="list-btn trans">

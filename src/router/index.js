@@ -3,24 +3,28 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-const Index = (resolve) => require.ensure([], () => resolve(require('../views/Guid.vue')));
-const Login = (resolve) => require.ensure([], () => resolve(require('../views/Login.vue')));
-const Register = (resolve) => require([], () => resolve(require('../views/Register.vue')));
+const Index = (resolve) => require.ensure([], () => resolve(require('@views/Guid.vue')));
+const Login = (resolve) => require.ensure([], () => resolve(require('@views/Login.vue')));
+const Register = (resolve) => require([], () => resolve(require('@views/Register.vue')));
 
 //作品管理系统
-const WorkManager = (resolve) => require([], () => resolve(require('../views/workManager/Index.vue')));
-const MenuOne = (resolve) => require([], () => resolve(require('../views/workManager/menu/index.vue')));
-const MenuTwo = (resolve) => require([], () => resolve(require('../views/workManager/menu/menuOne.vue')));
-const UploadPage = (resolve) => require([], () => resolve(require('../views/workManager/UploadPage.vue')));
+const WorkManager = (resolve) => require([], () => resolve(require('@views/workManager/Index.vue')));
+const MenuOne = (resolve) => require([], () => resolve(require('@views/workManager/menu/index.vue')));
+const MenuTwo = (resolve) => require([], () => resolve(require('@views/workManager/menu/menuOne.vue')));
+const UploadPage = (resolve) => require([], () => resolve(require('@views/workManager/UploadPage.vue')));
 
 //视频版块
-const Movie = (resolve) => require([], () => resolve(require('../views/Movie/inedx.vue')));
+const Movie = (resolve) => require([], () => resolve(require('@views/Movie/inedx.vue')));
 //图片页面
-const ImagePage = (resolve) => require([], () => resolve(require('../views/ImagePage')));
+const ImagePage = (resolve) => require([], () => resolve(require('@views/ImagePage')));
 
 //404页面
-const ErrorPage = (resolve) => require([], () => resolve(require('../views/404.vue')));
+const ErrorPage = (resolve) => require([], () => resolve(require('@views/404.vue')));
 const routes = [
+  {
+    path:'/',
+    component:Login
+  },
   {
     path: '/home',
     name: 'Index',

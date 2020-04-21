@@ -1,5 +1,6 @@
 <template>
   <div class="login-container">
+    <button @click="router.push('/uploadPage')">上传页面</button>
     <div class="content">
       <div class="left-con">左边图片区域</div>
       <div class="right-con">
