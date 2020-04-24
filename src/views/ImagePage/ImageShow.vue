@@ -47,7 +47,12 @@ export default {
         classType: 2
       }).then(res => {
         this.$loading.hide();
-        this.imgData = res.imgArr;
+        if(res.err==0){
+          this.imgData = res.imgArr;
+        }
+        else{
+          this.$Message.error({content:res.message})
+        }
       });
     },
     getImageData() {
@@ -56,21 +61,13 @@ export default {
         fileName: 'images'
       }).then(res => {
         this.$loading.hide();
-        this.imgData = res.imgArr;
-        console.log(this.imgData)
+        if(res.err==0){
+          this.imgData = res.imgArr;
+        }
+        else{
+          this.$Message.error({content:res.message})
+        }
       });
-    },
-    downloadByIframe(url){
-      var iframe = document.getElementById("myIframe");
-      if(iframe){
-        iframe.src = url;
-      }else{
-        iframe = document.createElement("iframe");
-        iframe.style.display = "none";
-        iframe.src = url;
-        iframe.id = "myIframe";
-        document.body.appendChild(iframe);
-      }
     },
     downloadHandler(href){
       href=href.split('9999')[1]

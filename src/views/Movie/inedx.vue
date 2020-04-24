@@ -24,5 +24,6 @@ export default {
 <style lang="scss" scoped>
 .movie-page {
   width: 100vw;
+  min-height: 100vh;
 }
 </style>

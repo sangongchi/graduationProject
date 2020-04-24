@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <div class="content">
-      <div class="left-con">左边图片区域</div>
+      <div class="left-con"></div>
       <div class="right-con">
         <div class="title">个人作品管理系统</div>
         <div class="loginForm">
@@ -129,7 +129,12 @@ export default {
     .left-con {
       width: 50%;
       height: 100%;
-      background-color: antiquewhite;
+      // background-color: antiquewhite;
+      background-image: url("../assets/imgs/loginBg.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 99%;
+      border-right: 1px solid gainsboro;
     }
     .right-con {
       width: 50%;

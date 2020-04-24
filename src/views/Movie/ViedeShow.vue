@@ -42,20 +42,6 @@ export default {
           movieImage: '',
           movieSrc: 'http://img.yopoo.cn/banner_video.mp4',
           id: '2'
-        },
-        {
-          movieTitle: '苹果AE视频',
-          movieDesr: '【sbr剧情手书/动画】谢谢你，杰洛，除此之外我找不出',
-          movieImage: '',
-          movieSrc: 'http://sangongchi.top:9999/test1.mp4',
-          id: '3'
-        },
-        {
-          movieTitle: '苹果AE视频',
-          movieDesr: '【sbr剧情手书/动画】谢谢你，杰洛，除此之外我找不出',
-          movieImage: '',
-          movieSrc: 'http://sangongchi.top:9999/test1.mp4',
-          id: '4'
         }
       ]
     };
@@ -114,11 +100,18 @@ export default {
     left: 50%;
     transform: translateX(-50%);
   }
+  .vjs-big-play-button{
+    position: absolute!important;
+    left: 50%!important;
+    top: 30%!important;
+    transform: translateX(-50%)!important;
+  }
 }
 </style>
 <style lang="scss" scoped>
 .Image-container {
   width: 1200px;
+  min-height: 100vh;
   padding: 24px;
   background-color: #f8f8f9;
   margin: 0 auto;
@@ -135,6 +128,7 @@ export default {
       .video-js {
         width: 100%;
         height: 100%;
+        position: relative;
       }
     }
   }
