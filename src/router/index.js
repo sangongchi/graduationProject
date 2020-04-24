@@ -3,14 +3,12 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-const Index = (resolve) => require.ensure([], () => resolve(require('@views/Guid.vue')));
+const Guid = (resolve) => require.ensure([], () => resolve(require('@views/Guid.vue')));
 const Login = (resolve) => require.ensure([], () => resolve(require('@views/Login.vue')));
 const Register = (resolve) => require([], () => resolve(require('@views/Register.vue')));
 
 //作品管理系统
 const WorkManager = (resolve) => require([], () => resolve(require('@views/workManager/Index.vue')));
-const MenuOne = (resolve) => require([], () => resolve(require('@views/workManager/menu/index.vue')));
-const MenuTwo = (resolve) => require([], () => resolve(require('@views/workManager/menu/menuOne.vue')));
 const UploadPage = (resolve) => require([], () => resolve(require('@views/workManager/UploadPage.vue')));
 
 //视频版块
@@ -26,9 +24,31 @@ const routes = [
     component:Login
   },
   {
-    path: '/home',
-    name: 'Index',
-    component: Index,
+    path:'/home',
+    name:'Home',
+    component:WorkManager,
+    children:[
+      {
+        path: 'uploadPage',
+        name: 'UploadPage',
+        component: UploadPage,
+      },
+      {
+        path: 'movie',
+        name: 'Movie',
+        component: Movie,
+      },
+      {
+        path: 'imagePage',
+        name: 'ImagePage',
+        component: ImagePage,
+      },
+    ]
+  },
+  {
+    path: '/guid',
+    name: 'Guid',
+    component: Guid,
   },
   //登录注册部分
   {
@@ -40,40 +60,6 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register,
-  },
-  //作品管理系统路由部分
-  {
-    path: '/workManager',
-    name: 'WorkManager',
-    component: WorkManager,
-    // redirect: '/workManager/one',
-    children: [
-      {
-        path: '',
-        name: 'One',
-        component: MenuOne,
-      },
-      {
-        path: 'two',
-        name: 'Two',
-        component: MenuTwo,
-      },
-    ],
-  },
-  {
-    path: '/uploadPage',
-    name: 'UploadPage',
-    component: UploadPage,
-  },
-  {
-    path: '/movie',
-    name: 'Movie',
-    component: Movie,
-  },
-  {
-    path: '/imagePage',
-    name: 'ImagePage',
-    component: ImagePage,
   },
   {
     path: '/404',

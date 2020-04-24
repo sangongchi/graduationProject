@@ -78,7 +78,7 @@ export default {
           ) {
             this.$post('/user/login', params).then(res => {
               if (res.err == 0) {
-                this.$router.push({ path: '/home' });
+                this.$router.push({ path: '/guid' });
               } else {
                 this.$Message.destroy();
                 this.$Message.error(res.message);

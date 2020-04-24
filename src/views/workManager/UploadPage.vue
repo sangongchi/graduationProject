@@ -38,21 +38,28 @@
             </Col>
           </Row>
         </Form>
-        <div class="upload-box" v-if="uploadInfo.classType!=2">
+        <div class="upload-box" v-if="uploadInfo.classType!=2&&uploadInfo.classType!=3">
           <div class="upload-title">上传源文件：</div>
           <div class="z-upload">
             <Icon type="ios-cloud-upload" class="inputIcon" size="52" style="color: #3399ff"></Icon>
             <input type="file" ref="uploadFile" class="inputStyle" @change="beforeUpload" />
           </div>
         </div>
-        <div class="upload-box">
+        <div class="upload-box" v-if="uploadInfo.classType==3">
+          <div class="upload-title">上传视频源文件：</div>
+          <div class="z-upload">
+            <Icon type="ios-cloud-upload" class="inputIcon" size="52" style="color: #3399ff"></Icon>
+            <input type="file" ref="uploadVideo" class="inputStyle" @change="beforeUploadVideo" />
+          </div>
+        </div>
+        <div class="upload-box" v-if="uploadInfo.classType!=3">
           <div class="upload-title">{{uploadInfo.classType==2?'上传图片文件：':'上传封面图：'}}</div>
           <div class="z-upload">
             <Icon type="ios-cloud-upload" class="inputIcon" size="52" style="color: #3399ff"></Icon>
             <input type="file" ref="uploadImg" class="inputStyle" @change="beforeUploadImg" />
           </div>
         </div>
-        <Button type="primary" @click="submitData">提交</Button>
+        <Button type="primary">提交</Button>
       </div>
     </div>
   </div>
@@ -131,6 +138,23 @@ export default {
           console.log(err);
         });
     },
+    beforeUploadVideo(file) {
+      if(this.validatorHandler()){
+        this.$loading.show();
+        let formData = new FormData();
+        formData.append('file', file.target.files[0]);
+        this.$post('/upload/video', formData)
+        .then(res => {
+          this.$loading.hide();
+          // this.uploadInfo.fileUrl = res.url;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      }else{
+        this.$Message.error('请填写所有必填项')
+      }
+    },
     beforeUploadImg(file) {
       let formData = new FormData();
       formData.append('file', file.target.files[0]);
@@ -143,27 +167,17 @@ export default {
         });
     },
     /**
-     * @method submitData
-     * @description 上传参数以及文件
+     * @method validatorHandler
+     * @description 校验参数是否填写完毕
      */
-    submitData() {
+    validatorHandler() {
       let params = this.uploadInfo;
       params.userId = '123456';
       this.$refs['submitForm'].validate(valid => {
         if (valid) {
-          if (this.uploadInfo.fileUrl != '') {
-            this.$post('/upload/info', params)
-              .then(res => {
-                this.$Message.success('文件上传成功');
-              })
-              .catch(err => {
-                console.log('文件上传有误');
-              });
-          } else {
-            this.$Message.error('请选择上传文件');
-          }
+          return true
         } else {
-          console.log('校验未通过');
+          return false
         }
       });
     }
@@ -172,14 +186,13 @@ export default {
 </script>
 <style lang="scss">
 .out-container {
-  width: 100vw;
-  min-height: 100vh;
+  width: 100%;
   background: rgba(240, 242, 245, 1);
   font-family: PingFangSC-Regular, PingFang SC;
   font-size: 14px;
   .upload-container {
     margin: 0 auto;
-    width: 1036px;
+    width: 100%;
     background: rgba(255, 255, 255, 1);
     border-radius: 4px;
     overflow: hidden;
@@ -187,6 +200,9 @@ export default {
       width: 100%;
       height: 56px;
       border-bottom: 1px solid #00000021;
+      line-height: 56px;
+      font-size: 24px;
+      text-align: center;
     }
     .main-content {
       width: 500px;

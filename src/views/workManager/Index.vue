@@ -2,47 +2,55 @@
   <div class="container-layout">
     <Layout>
       <Layout>
-        <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed" class="leftNav">
-          <Menu active-name="1-2" theme="dark" width="auto" :class="menuitemClasses" @on-select="changeMenu">
+        <Sider
+          ref="side1"
+          hide-trigger
+          collapsible
+          :collapsed-width="78"
+          v-model="isCollapsed"
+          class="leftNav"
+        >
+          <Menu
+            theme="dark"
+            width="auto"
+            :class="menuitemClasses"
+            @on-select="changeMenu"
+          >
             <Submenu name="1" class="mulLevel">
               <template slot="title">
-                <Icon type="ios-navigate"></Icon>
-                <span>菜单一</span>
-              </template>
-              <MenuItem name="1-1">Option 1</MenuItem>
-              <MenuItem name="1-2">Option 2</MenuItem>
-              <MenuItem name="1-3">Option 3</MenuItem>
-            </Submenu>
-            <Submenu name="2" class="mulLevel">
-              <template slot="title">
                 <Icon type="ios-keypad"></Icon>
-                <span>菜单栏二</span>
+                <span>版块菜单</span>
               </template>
-              <MenuItem name="2-1">Option 1</MenuItem>
-              <MenuItem name="2-2">Option 2</MenuItem>
-            </Submenu>
-            <Submenu name="3" class="mulLevel">
-              <template slot="title">
-                <Icon type="ios-analytics"></Icon>
-                <span>菜单栏三</span>
-              </template>
-              <MenuItem name="3-1">Option 1</MenuItem>
-              <MenuItem name="3-2">Option 2</MenuItem>
+              <MenuItem name="1-2" :to="{path:'/home/imagePage'}">图片版块</MenuItem>
+              <MenuItem name="1-3" :to="{path:'/home/movie'}">视频版块</MenuItem>
             </Submenu>
           </Menu>
         </Sider>
         <Layout>
           <Header :style="{ padding: 0 }" class="layout-header-bar">
-            <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{ margin: '0 20px' }" type="md-menu" size="24"></Icon>
+            <Icon
+              @click.native="collapsedSider"
+              :class="rotateIcon"
+              :style="{ margin: '0 20px' }"
+              type="md-menu"
+              size="24"
+            ></Icon>
 
             <div class="nav-top">
-              <MenuItem name="1" class="item"> <Icon type="ios-navigate"></Icon>上传 </MenuItem>
-              <MenuItem name="2" class="item"> <Icon type="ios-keypad"></Icon>切换系统 </MenuItem>
-              <MenuItem name="3" class="item"> <Icon type="ios-analytics"></Icon>账户 </MenuItem>
-              <MenuItem name="4" class="item"> <Icon type="ios-paper"></Icon>注销 </MenuItem>
+              <MenuItem name="1" class="item" :to="{path:'/home/uploadPage'}">
+                <Icon type="ios-navigate"></Icon>上传
+              </MenuItem>
+              <MenuItem name="2" class="item">
+                <Icon type="ios-keypad"></Icon>切换系统
+              </MenuItem>
+              <MenuItem name="4" class="item">
+                <Icon type="ios-paper"></Icon>注销
+              </MenuItem>
             </div>
           </Header>
-          <Content :style="{ margin: '20px', background: '#fff', minHeight: '260px' }">Content</Content>
+          <Content :style="{ margin: '20px', background: '#fff', minHeight: '260px' }">
+            <router-view></router-view>
+          </Content>
         </Layout>
       </Layout>
     </Layout>

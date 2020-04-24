@@ -99,8 +99,7 @@ export default {
   -webkit-transition: all 0.2s;
 }
 .Image-container {
-  width: 1200px;
-  min-width: 100vh;
+  width: 100%;
   padding: 24px;
   background-color: #ffffff;
   margin: 0 auto;

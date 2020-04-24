@@ -42,6 +42,27 @@ export default {
           movieImage: '',
           movieSrc: 'http://img.yopoo.cn/banner_video.mp4',
           id: '2'
+        },
+        {
+          movieTitle: '苹果AE视频',
+          movieDesr: '【sbr剧情手书/动画】谢谢你，杰洛，除此之外我找不出',
+          movieImage: '',
+          movieSrc: 'http://img.yopoo.cn/banner_video.mp4',
+          id: '3'
+        },
+        {
+          movieTitle: '苹果AE视频',
+          movieDesr: '【sbr剧情手书/动画】谢谢你，杰洛，除此之外我找不出',
+          movieImage: '',
+          movieSrc: 'http://img.yopoo.cn/banner_video.mp4',
+          id: '4'
+        },
+        {
+          movieTitle: '苹果AE视频',
+          movieDesr: '【sbr剧情手书/动画】谢谢你，杰洛，除此之外我找不出',
+          movieImage: '',
+          movieSrc: 'http://img.yopoo.cn/banner_video.mp4',
+          id: '5'
         }
       ]
     };
@@ -110,20 +131,16 @@ export default {
 </style>
 <style lang="scss" scoped>
 .Image-container {
-  width: 1200px;
-  min-height: 100vh;
-  padding: 24px;
-  background-color: #f8f8f9;
-  margin: 0 auto;
+  // width:100%;
+  // padding: 24px;
   .video-body {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 380px);
     .video-option {
       height: 204px;
       width: 360px;
       overflow: hidden;
-      margin: 0 12px;
+      margin-top:10px auto;
       margin-bottom: 45px;
       .video-js {
         width: 100%;
