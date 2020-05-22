@@ -5,8 +5,9 @@ function resolve(dir) {
 module.exports = {
   devServer: {
     disableHostCheck: true,
-    proxy: 'http://localhost:8080',
-    public: '192.168.xxx.xxx:8080', // 本地ip
+    port:7777,
+    host: '127.0.0.1',
+    https: false,
   },
   lintOnSave: true,
   chainWebpack: (config) => {

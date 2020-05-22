@@ -19,9 +19,9 @@
           <Header :style="{ padding: 0 }" class="layout-header-bar">
             <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{ margin: '0 20px' }" type="md-menu" size="24"></Icon>
             <div class="nav-top">
-              <MenuItem name="1" class="item" :to="{ path: '/home/uploadPage' }"> <Icon type="ios-navigate"></Icon>上传 </MenuItem>
+              <MenuItem name="5" class="item" :to="{ path: '/home/uploadPage' }"> <Icon type="ios-navigate"></Icon>上传 </MenuItem>
               <MenuItem name="2" class="item"> <Icon type="ios-keypad"></Icon>切换系统 </MenuItem>
-              <MenuItem name="4" class="item"> <Icon type="ios-paper"></Icon>注销 </MenuItem>
+              <MenuItem name="4" class="item" @click.native="goOut"> <Icon type="ios-paper"></Icon>注销 </MenuItem>
             </div>
           </Header>
           <Content :style="{ margin: '20px', background: '#fff', minHeight: '260px' }">
@@ -56,6 +56,12 @@ export default {
   methods: {
     collapsedSider() {
       this.$refs.side1.toggleCollapse();
+    },
+    goOut(){
+      console.log("执行登出事件")
+      this.$router.replace({
+        path:'/login'
+      })
     },
     changeMenu() {
       this.$router.push('/' + this.routerActiveName);

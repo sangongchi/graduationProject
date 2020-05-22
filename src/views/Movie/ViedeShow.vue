@@ -4,7 +4,7 @@
       <div class="video-body">
         <div
           class="video-option"
-          v-for="(item, index) in movieList"
+          v-for="item in movieList"
           :key="item.id"
           @mouseenter="videController(item.id, 1)"
           @mouseleave="videController(item.id, 2)"
@@ -51,12 +51,10 @@ export default {
           //确定播放器是否具有用户可以与之交互的控件。没有控件，启动视频播放的唯一方法是使用autoplay属性或通过Player API。
           controls: true,
           //自动播放属性,muted:静音播放
-          autoplay: 'muted',
-          // autoplay: false,
+          autoplay: false,
           //建议浏览器是否应在<video>加载元素后立即开始下载视频数据。
           preload: 'auto',
         });
-        console.log(item.id);
       });
     },
     /**
