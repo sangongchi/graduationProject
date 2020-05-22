@@ -9,25 +9,32 @@ const Register = (resolve) => require([], () => resolve(require('@views/Register
 
 //作品管理系统
 const WorkManager = (resolve) => require([], () => resolve(require('@views/workManager/Index.vue')));
+const HomeNo = (resolve) => require([], () => resolve(require('@views/noFile.vue')));
 const UploadPage = (resolve) => require([], () => resolve(require('@views/workManager/UploadPage.vue')));
 
 //视频版块
 const Movie = (resolve) => require([], () => resolve(require('@views/Movie/inedx.vue')));
 //图片页面
 const ImagePage = (resolve) => require([], () => resolve(require('@views/ImagePage')));
-
+//文件页面
+const filePage = (resolve) => require([], () => resolve(require('@views/filePage/index.vue')));
 //404页面
 const ErrorPage = (resolve) => require([], () => resolve(require('@views/404.vue')));
 const routes = [
   {
-    path:'/',
-    component:Login
+    path: '/',
+    component: Login,
   },
   {
-    path:'/home',
-    name:'Home',
-    component:WorkManager,
-    children:[
+    path: '/home',
+    name: 'Home',
+    component: WorkManager,
+    children: [
+      {
+        path: '',
+        name: 'HomeNofile',
+        component: HomeNo,
+      },
       {
         path: 'uploadPage',
         name: 'UploadPage',
@@ -43,7 +50,12 @@ const routes = [
         name: 'ImagePage',
         component: ImagePage,
       },
-    ]
+      {
+        path: 'filePage',
+        name: 'FilePage',
+        component: filePage,
+      },
+    ],
   },
   {
     path: '/guid',

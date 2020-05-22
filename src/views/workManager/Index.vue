@@ -2,54 +2,30 @@
   <div class="container-layout">
     <Layout>
       <Layout>
-        <Sider
-          ref="side1"
-          hide-trigger
-          collapsible
-          :collapsed-width="78"
-          v-model="isCollapsed"
-          class="leftNav"
-        >
-          <Menu
-            theme="dark"
-            width="auto"
-            :class="menuitemClasses"
-            @on-select="changeMenu"
-          >
+        <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed" class="leftNav">
+          <Menu theme="dark" width="auto" :class="menuitemClasses" @on-select="changeMenu" :open-names="['1']">
             <Submenu name="1" class="mulLevel">
               <template slot="title">
                 <Icon type="ios-keypad"></Icon>
                 <span>版块菜单</span>
               </template>
-              <MenuItem name="1-2" :to="{path:'/home/imagePage'}">图片版块</MenuItem>
-              <MenuItem name="1-3" :to="{path:'/home/movie'}">视频版块</MenuItem>
+              <MenuItem name="FilePage" :to="{ path: '/home/filePage' }">文件版块</MenuItem>
+              <MenuItem name="ImagePage" :to="{ path: '/home/imagePage' }">图片版块</MenuItem>
+              <MenuItem name="Movie" :to="{ path: '/home/movie' }">视频版块</MenuItem>
             </Submenu>
           </Menu>
         </Sider>
         <Layout>
           <Header :style="{ padding: 0 }" class="layout-header-bar">
-            <Icon
-              @click.native="collapsedSider"
-              :class="rotateIcon"
-              :style="{ margin: '0 20px' }"
-              type="md-menu"
-              size="24"
-            ></Icon>
-
+            <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{ margin: '0 20px' }" type="md-menu" size="24"></Icon>
             <div class="nav-top">
-              <MenuItem name="1" class="item" :to="{path:'/home/uploadPage'}">
-                <Icon type="ios-navigate"></Icon>上传
-              </MenuItem>
-              <MenuItem name="2" class="item">
-                <Icon type="ios-keypad"></Icon>切换系统
-              </MenuItem>
-              <MenuItem name="4" class="item">
-                <Icon type="ios-paper"></Icon>注销
-              </MenuItem>
+              <MenuItem name="1" class="item" :to="{ path: '/home/uploadPage' }"> <Icon type="ios-navigate"></Icon>上传 </MenuItem>
+              <MenuItem name="2" class="item"> <Icon type="ios-keypad"></Icon>切换系统 </MenuItem>
+              <MenuItem name="4" class="item"> <Icon type="ios-paper"></Icon>注销 </MenuItem>
             </div>
           </Header>
           <Content :style="{ margin: '20px', background: '#fff', minHeight: '260px' }">
-            <router-view></router-view>
+            <router-view style="maxHeight: '100vh'"></router-view>
           </Content>
         </Layout>
       </Layout>
@@ -61,7 +37,7 @@ export default {
   data() {
     return {
       routerActiveName: this.$route.name,
-      isCollapsed: false
+      isCollapsed: false,
     };
   },
   computed: {
@@ -70,7 +46,7 @@ export default {
     },
     menuitemClasses() {
       return ['menu-item', this.isCollapsed ? 'collapsed-menu' : ''];
-    }
+    },
   },
   //当前路由改变时调用
   beforeRouteUpdate(to, from, next) {
@@ -83,11 +59,11 @@ export default {
     },
     changeMenu() {
       this.$router.push('/' + this.routerActiveName);
-    }
+    },
   },
   mounted() {
     console.log(this.$route.name);
-  }
+  },
 };
 </script>
 <style lang="scss">

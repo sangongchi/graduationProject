@@ -4,8 +4,8 @@
       <h1 class="logo-title">作品管理平台</h1>
     </div>
     <div class="index-content">
-      <div class="item" v-for="(item) in systems" :key="item.identify">
-        <a :href="item.resPath" class="system-link">
+      <div class="item" v-for="item in systems" :key="item.identify">
+        <a :href="item.resPath" class="system-link" target="blank">
           <img :src="item.ImgSrc" :alt="item.identify" />
           <p style="text-align: center; padding-top: 10px;">{{ item.resName }}</p>
         </a>
@@ -19,24 +19,24 @@ export default {
   name: 'guid',
   data() {
     return {
-      systems: []
+      systems: [],
     };
   },
   components: {},
   methods: {
     getSystems() {
       this.$post('/guid/guidSystems', {})
-        .then(res => {
+        .then((res) => {
           this.systems = res.systems;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log('数据请求错误' + err);
         });
-    }
+    },
   },
   mounted() {
     this.getSystems();
-  }
+  },
 };
 </script>
 <style lang="scss">

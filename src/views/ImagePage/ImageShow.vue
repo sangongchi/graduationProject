@@ -2,13 +2,10 @@
   <div class="Image-container">
     <div class="content">
       <Tabs :animated="false" @on-click="clickHandler">
-        <TabPane
-          :label="selectItem.name"
-          v-for="(selectItem) in seletOptionArr"
-          :key="selectItem.name+selectItem.id"
-        >
+        <TabPane :label="selectItem.name" v-for="selectItem in seletOptionArr" :key="selectItem.name + selectItem.id">
           <div class="img-body">
-            <div class="img-option" v-for="item in imgData" :key="item.id">
+            <div v-if="imgData.length == 0">无照片</div>
+            <div class="img-option" v-for="item in imgData" :key="item.id" v-else>
               <div class="img">
                 <img :src="item.fileSrc" alt="item.name" />
               </div>
@@ -31,58 +28,60 @@ export default {
       imgData: [],
       imgSelectType: '',
       seletOptionArr: [
-        { name: '精选作品', value: 0 },
-        { name: '个人设计', value: 1 },
-        { name: '未知名称', value: 2 },
-        { name: '未知名称2', value: 3 }
-      ]
+        { name: '精选图片', value: 0 },
+        { name: '设计图', value: 1 },
+        { name: '摄影图', value: 2 },
+      ],
     };
   },
   methods: {
     clickHandler(id) {
-      console.log('我被点击了' + id);
       this.$loading.show();
       this.$post('/seeFile/ImageData', {
         fileName: 'images',
-        classType: 2
-      }).then(res => {
+        classType: 2,
+        imgType: id,
+      }).then((res) => {
         this.$loading.hide();
-        if(res.err==0){
+        if (res.err == 0) {
           this.imgData = res.imgArr;
-        }
-        else{
-          this.$Message.error({content:res.message})
+        } else {
+          this.imgData = [];
+          // this.$Message.error({ content: res.message });
         }
       });
     },
     getImageData() {
       this.$loading.show();
       this.$post('/seeFile/ImageData', {
-        fileName: 'images'
-      }).then(res => {
+        fileName: 'images',
+        classType: 2,
+      }).then((res) => {
         this.$loading.hide();
-        if(res.err==0){
+        if (res.err == 0) {
           this.imgData = res.imgArr;
-        }
-        else{
-          this.$Message.error({content:res.message})
+        } else {
+          this.imgData = [];
+          // this.$Message.error({ content: res.message });
         }
       });
     },
-    downloadHandler(href){
-      href=href.split('9999')[1]
+    downloadHandler(href) {
+      href = href.split('9999')[1];
       this.$get('/downloadUrl', {
         fileHref: href,
-      }).then(res => {
-        location.href=res.downloadUrl
-      }).catch(err=>{
-        console.log('文件下载失败')
-      });
+      })
+        .then((res) => {
+          location.href = res.downloadUrl;
+        })
+        .catch((err) => {
+          console.log('文件下载失败');
+        });
     },
   },
   mounted() {
     this.getImageData();
-  }
+  },
 };
 </script>
 <style lang="scss">
