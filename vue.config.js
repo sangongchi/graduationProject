@@ -6,8 +6,6 @@ module.exports = {
   devServer: {
     disableHostCheck: true,
     port:7777,
-    host: '127.0.0.1',
-    https: false,
   },
   lintOnSave: true,
   chainWebpack: (config) => {
