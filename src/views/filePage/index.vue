@@ -37,12 +37,12 @@ export default {
       this.$get('/downloadUrl', {
         fileHref: href,
       })
-        .then((res) => {
-          location.href = res.downloadUrl;
-        })
-        .catch((err) => {
-          console.log('文件下载失败');
-        });
+      .then((res) => {
+        location.href = res.downloadUrl;
+      })
+      .catch((err) => {
+        console.log('文件下载失败');
+      });
     },
   },
   mounted() {

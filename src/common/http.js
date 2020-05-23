@@ -15,9 +15,9 @@ import QS from 'qs';
 // }
 // let baseURL = 'http://192.168.1.13:3000';
 // let baseURL = ' http://sangongchi.top:7300/mock/5e6c86dc69a38933beebdd9b/graduationProject';
-// let baseURL = 'http://sangongchi.top:3000';
+let baseURL = 'http://sangongchi.top:3000';
 // let baseURL = 'http://127.0.0.1:3000';
-let baseURL = 'http://192.168.3.129:3000';
+// let baseURL = 'http://192.168.3.129:3000';
 
 // 请求超时时间
 axios.defaults.timeout = 10000;

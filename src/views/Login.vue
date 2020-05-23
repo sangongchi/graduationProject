@@ -18,7 +18,7 @@
               <Input type="text" v-model="formInline.code" placeholder="验证码"></Input>
 
               <div class="codeImg" @click="refreshCaptch">
-                <img src="http://192.168.3.129:3000/code/getCodeImg" alt="验证码" ref="codeImg" />
+                <img src="http://sangongchi.top:3000/code/getCodeImg" alt="验证码" ref="codeImg" />
               </div>
             </FormItem>
             <Row>
@@ -97,7 +97,7 @@ export default {
      */
     refreshCaptch() {
       this.$refs['codeImg'].src =
-        'http://192.168.3.129:3000/code/getCodeImg?d=' + Math.random();
+        'http://sangongchi.top:3000/code/getCodeImg?d=' + Math.random();
     },
     goResgister() {
       this.$router.push({ path: '/register' });

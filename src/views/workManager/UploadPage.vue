@@ -15,7 +15,7 @@
             <Col span="24">
               <FormItem label="文件分类:" prop="classType">
                 <Select v-model="uploadInfo.classType">
-                  <Option v-for="item in classList" :value="item.value" :key="item.name">{{ item.name }}</Option>
+                  <Option v-for="(item,index) in classList" :value="item.value" :key="item.name+index">{{ item.name }}</Option>
                 </Select>
               </FormItem>
             </Col>
