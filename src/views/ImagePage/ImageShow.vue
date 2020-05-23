@@ -9,7 +9,9 @@
               <div class="img">
                 <img :src="item.fileSrc" alt="item.name" />
               </div>
-              <div class="list-info trans"></div>
+              <div class="list-info trans">
+                {{item.fileDesr}}
+              </div>
               <div class="list-btn trans">
                 <div class="img-download" @click="downloadHandler(item.fileSrc)">立即下载</div>
               </div>
@@ -45,6 +47,7 @@ export default {
         this.$loading.hide();
         if (res.err == 0) {
           this.imgData = res.imgArr;
+          console.log(this.imgData)
         } else {
           this.imgData = [];
           // this.$Message.error({ content: res.message });
@@ -135,11 +138,12 @@ export default {
       }
       .list-info {
         width: 100%;
-        height: 50px;
-        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.263), #ffffff41);
+        background: linear-gradient(to bottom, rgba(48, 161, 54, 0.486), #ffffff41);
         box-shadow: 130px 0 40px 20px #ffffff41;
         position: absolute;
-        top: -50px;
+        text-align: center;
+        color: #ffffff;
+        padding:10px 0;
       }
       .list-btn {
         width: 100%;
@@ -150,6 +154,10 @@ export default {
         box-shadow: 130px 0 40px 20px #ffffff41;
         bottom: -83px;
         .img-download {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          bottom: 8px;
           display: inline-block;
           height: 38px;
           text-align: center;

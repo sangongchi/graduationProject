@@ -20,7 +20,22 @@
             <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{ margin: '0 20px' }" type="md-menu" size="24"></Icon>
             <div class="nav-top">
               <MenuItem name="5" class="item" :to="{ path: '/home/uploadPage' }"> <Icon type="ios-navigate"></Icon>上传 </MenuItem>
-              <MenuItem name="2" class="item"> <Icon type="ios-keypad"></Icon>切换系统 </MenuItem>
+              <MenuItem name="2" class="item"> 
+                 <Dropdown>
+                  <a href="javascript:void(0)">
+                     <Icon type="ios-keypad"></Icon>切换系统
+                      <Icon type="ios-arrow-down"></Icon>
+                  </a>
+                  <DropdownMenu slot="list">
+                      <DropdownItem v-for="item in systems" :key='item.identify'>
+                        <a :href="item.resPath" class="system-link" target="blank">
+                          <p style="text-align: center; padding-top: 10px;">{{ item.resName }}</p>
+                        </a>
+                      </DropdownItem>
+                  </DropdownMenu>
+              </Dropdown>
+                
+              </MenuItem>
               <MenuItem name="4" class="item" @click.native="goOut"> <Icon type="ios-paper"></Icon>注销 </MenuItem>
             </div>
           </Header>
@@ -38,6 +53,7 @@ export default {
     return {
       routerActiveName: this.$route.name,
       isCollapsed: false,
+      systems:[],
     };
   },
   computed: {
@@ -54,6 +70,15 @@ export default {
     next();
   },
   methods: {
+    getSystems() {
+      this.$post('/guid/guidSystems', {})
+        .then((res) => {
+          this.systems = res.systems;
+        })
+        .catch((err) => {
+          console.log('数据请求错误' + err);
+        });
+    },
     collapsedSider() {
       this.$refs.side1.toggleCollapse();
     },
@@ -69,11 +94,15 @@ export default {
   },
   mounted() {
     console.log(this.$route.name);
+    this.getSystems();
   },
 };
 </script>
 <style lang="scss">
 .container-layout {
+  a{
+    color: inherit;
+  }
   border: 1px solid #d7dde4;
   background: #f5f7f9;
   position: relative;

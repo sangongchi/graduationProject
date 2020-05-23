@@ -2,7 +2,7 @@
   <div class="file-container">
     <div class="file-content" v-if="fileList != undefined && fileList.length > 0">
       <div class="file-option" v-for="(item, index) in fileList" :key="index">
-        <div class="option-img">{{ item.fileName }}</div>
+        <div class="option-img"></div>
         <div class="option-title">
           {{ item.fileName }}
           <Button class="btn" @click="downloadHandler(item.fileSrc)" type="primary" ghost>下载</Button>
@@ -15,7 +15,7 @@
 </template>
 <script>
 export default {
-  name: '',
+  name: 'filePage',
   data() {
     return {
       fileList: [],
@@ -62,10 +62,15 @@ export default {
     .file-option {
       float: left;
       margin: 10px 15px;
+
       .option-img {
         width: 300px;
         height: 120px;
-        background-color: bisque;
+        // background-color: bisque;
+        background-image: url("../../assets/imgs/file.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 40%, 40%;
       }
       .option-title {
         font-size: 18px;
