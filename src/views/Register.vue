@@ -16,9 +16,9 @@
             <FormItem prop="repeatPassword" class="input-item" label="确认密码：">
               <Input type="text" v-model="formInline.repeatPassword" placeholder="请再次输入密码"></Input>
             </FormItem>
-            <FormItem class="input-item safeCode-item" label="验证码：">
+            <!-- <FormItem class="input-item safeCode-item" label="验证码：">
               <Input type="text" v-model="formInline.safeCode" placeholder="验证码"></Input>
-            </FormItem>
+            </FormItem> -->
             <Row>
               <Col span="12" align="center">
                 <FormItem>

@@ -33,7 +33,7 @@
                 </FormItem>
               </Col>
             </Row>
-            <div class="forgetPass">忘记密码</div>
+            <!-- <div class="forgetPass">忘记密码</div> -->
           </Form>
         </div>
       </div>

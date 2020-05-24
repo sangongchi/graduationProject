@@ -38,16 +38,17 @@ export default {
   },
   methods: {
     clickHandler(id) {
+      // console.log(id)
       this.$loading.show();
       this.$post('/seeFile/ImageData', {
         fileName: 'images',
         classType: 2,
-        imgType: id,
+        imgType: id.toString(),
       }).then((res) => {
         this.$loading.hide();
         if (res.err == 0) {
           this.imgData = res.imgArr;
-          console.log(this.imgData)
+          // console.log(this.imgData)
         } else {
           this.imgData = [];
           // this.$Message.error({ content: res.message });
@@ -59,6 +60,7 @@ export default {
       this.$post('/seeFile/ImageData', {
         fileName: 'images',
         classType: 2,
+        imgType:'0'
       }).then((res) => {
         this.$loading.hide();
         if (res.err == 0) {
@@ -78,7 +80,8 @@ export default {
           location.href = res.downloadUrl;
         })
         .catch((err) => {
-          console.log('文件下载失败');
+          this.$Message.error({content:'文件下载失败'})
+          // console.log('文件下载失败');
         });
     },
   },
